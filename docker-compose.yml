@@ -1,0 +1,23 @@
+version: '3'
+services:
+ db:
+  image: mysql:latest
+  environment:
+    MYSQL_ROOT_PASSWORD: siva
+    MYSQL_DATABASE: example_db
+    MYSQL_USER: example_db_user
+    MYSQL_PASSWORD: example_db_pass
+  ports:
+   - 3306:3306
+  
+ web:
+  image: tomcat:latest
+  environment:
+    JDBC_URL: jdbc:mysql://db:3306/example_db?connectTimeout=0&amp;socketTimeout=0&amp;autoReconnect=true
+    JDBC_USER: example_db_user
+    JDBC_PASS: example_db_pass
+  ports:
+   - 8080:8080
+  
+  links:
+    - db      
